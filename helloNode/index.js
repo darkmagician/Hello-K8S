@@ -19,7 +19,7 @@ if(process.env.SERVICES){
 							let error;
 							if (statusCode !== 200) {
 								error = new Error('Request Failed.\n' +
-										'Status Code: ${statusCode}');
+										`Status Code: ${statusCode}`);
 							}
 							if (error) {
 								console.log(error.message);
@@ -27,7 +27,7 @@ if(process.env.SERVICES){
 								nextService(i + 1)
 								return;
 							}
-							result += '\n{ Get Response from ' + serviceName+': ';
+							result += `\n{ Get Response from ${serviceName}: `;
 							res.setEncoding('utf8');
 							res.on('data', (chunk) => result += chunk);
 							res.on('end', ()=> {
@@ -35,7 +35,7 @@ if(process.env.SERVICES){
 									nextService(i + 1);
 								});
 						}).on('error', (e) => {
-							console.log('Got error: ${e.message}');
+							console.log(`Got error: ${e.message}`);
 							nextService(i + 1);
 						});
 			}else{
