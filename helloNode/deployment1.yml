@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hello1-deployment
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: 
+    metadata:
+      labels:
+        app: hello1
+    spec:
+      containers:
+      - name: hello1
+        image: darkmagician/hellonode
+        ports:
+        - containerPort: 8080
+        env: 
+        - name:  SERVICES
+          value:  hello2:8080,hello3:8080          
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello1
+spec:
+  selector:
+    app: hello1
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
