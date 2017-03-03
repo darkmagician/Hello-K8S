@@ -8,7 +8,7 @@ if(process.env.SERVICES){
 
 	
 	httpservice = function (request, response) {
-		var result='Hello, I am '+os.hostname()+'. Let me introduce: ';
+		var result=`Hello, ${request.connection.remoteAddress}. I am ${os.hostname()} Let me introduce: `;
 		function nextService(i){
 				if (i < services.length && i<5) {
 					var serviceName = services[i];
@@ -48,7 +48,7 @@ if(process.env.SERVICES){
 }else{
 	httpservice = function (request, response) {
     response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end('Hello, I am '+os.hostname());
+    response.end(`Hello, ${request.connection.remoteAddress}. I am ${os.hostname()}`);
 }
 }
 
